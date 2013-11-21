@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <article class="login short">
+        {% block preamble %}
+        {% endblock %}
+        
+        <a href="{% url 'socialauth_begin' 'twitter' %}" class="twitter button">Login with Twitter</a>
+    </article>
+{% endblock %}

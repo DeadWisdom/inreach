@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block top %}
+    <header>
+        <a class="twitter" href="http://twitter.com/{{twitter.screen_name}}" style="background-image: url({{twitter.profile_image_url}})">{{ twitter.screen_name }}</a>
+        <a class="right" href="/accounts/logout/">Logout</a>
+    </header>
+{% endblock %}
+
+{% block content %}
+    <article>
+        <h1>Account: {{ account.status|default:"not yet created." }} </h1>
+        <section>
+            <form action="/" method="post" autocomplete="off">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="save">
+                <div class="clear"></div>
+            </form>
+        </section>
+
+        <h1>Messages</h1>
+        <section>
+            {% for message in messages %}
+                {{ message }}
+            {% empty %}
+                <em>No messages yet.</em>
+            {% endfor %}
+        </section>
+    </article>
+{% endblock %}
