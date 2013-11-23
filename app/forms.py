@@ -5,7 +5,5 @@ from models import Account
 class AccountForm(ModelForm):
     class Meta:
         model = Account
-        fields = ['address', 'port', 'login', 'password']
-        widgets = {
-            'password': PasswordInput(),
-        }
+        fields = ['address', 'port', 'login', 'password', 'search', 'send_to_twitter']
+        #widgets = { 'password': PasswordInput() }

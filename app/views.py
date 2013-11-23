@@ -1,5 +1,5 @@
 from pprint import pprint
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import Http404
 
 from forms import AccountForm
@@ -20,10 +20,11 @@ def index(request):
         form = AccountForm(request.POST, instance=account)
         if form.is_valid():
             account = form.save()
+            return redirect('/')
     else:
         form = AccountForm(instance=account)
 
-    messages = Message.objects.all()[:50]
+    messages = Message.objects.all().order_by('-sent')[:50]
     social = request.user.social_auth.get()
     twitter = social.extra_data
     return render(request, 'index.html', locals())
@@ -39,5 +40,6 @@ def poll(request):
         return JsonResponse(None)
 
     return JsonResponse({
-        "status": account.status()
+        "status": account.status(),
+        "updates": [x.simple() for x in account.get_updates_since(request.GET.get('since'))]
     })

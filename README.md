@@ -26,3 +26,10 @@ Setup the database with syncdb:
 
     > env/bin/python manage.py syncdb --noinput
     ...
+
+
+credits
+=======
+built by Brantley Harris
+commissioned by Jason Rexilius
+

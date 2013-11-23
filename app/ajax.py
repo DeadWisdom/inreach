@@ -8,11 +8,11 @@ class EnhancedJSONEncoder(json.JSONEncoder):
     """
     def default(self, o):
         if isinstance(o, datetime.datetime):
-            return tuple(o.timetuple())
+            return o.ctime()
         elif isinstance(o, datetime.date):
-            return tuple(o.timetuple())
+            return o.ctime()
         elif isinstance(o, datetime.time):
-            return tuple(o.timetuple())
+            return o.ctime()
         elif isinstance(o, decimal.Decimal):
             return str(o)
         else:

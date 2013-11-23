@@ -1,5 +1,13 @@
 {% extends "layout.html" %}
 
+{% block head %}
+    <script type="text/javascript" src="{{STATIC_URL}}js/update.js"></script>
+
+    <script type="text/javascript">
+        window.last_update_id = {{account.get_last_update.id|default:"null"}};
+    </script>
+{% endblock %}
+
 {% block top %}
     <header>
         <a class="twitter" href="http://twitter.com/{{twitter.screen_name}}" style="background-image: url({{twitter.profile_image_url}})">{{ twitter.screen_name }}</a>
@@ -8,9 +16,13 @@
 {% endblock %}
 
 {% block content %}
+    <div class="template" id="message-template">
+        {% include "message.html" %}
+    </div>
+
     <article>
-        <h1>Account: {{ account.status|default:"not yet created." }} </h1>
-        <section>
+        <h1>Settings</h1>
+        <section class="collapse">
             <form action="/" method="post" autocomplete="off">
                 {% csrf_token %}
                 {{ form.as_p }}
@@ -19,10 +31,10 @@
             </form>
         </section>
 
-        <h1>Messages</h1>
-        <section>
+        <h1>Messages &middot; <span id="status">{{ account.get_last_update|default:""|safe }}</span></h1>
+        <section id="message-list">
             {% for message in messages %}
-                {{ message }}
+                {% include "message.html" %}
             {% empty %}
                 <em>No messages yet.</em>
             {% endfor %}
