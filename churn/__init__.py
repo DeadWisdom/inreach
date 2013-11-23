@@ -15,4 +15,4 @@ def churn():
         print "process_new_messages"
         pool.map(tweet_out.process_new_messages, accounts)
         print "done."
-        time.sleep(30)
+        time.sleep(60 * 5)  # Every 5 minutes
