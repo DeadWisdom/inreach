@@ -1,2 +1,3 @@
 django
 django-social-auth
+tweepy==2.1

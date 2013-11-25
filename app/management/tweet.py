@@ -3,7 +3,7 @@ from django.conf import settings
 from app.models import Account
 
 
-def process(client, message):
+def process_message(client, message):
     body = message.sender + ": "
     body += message.body
     if (len(body) >= 115):
@@ -31,7 +31,7 @@ def process_new_messages(account):
             client = get_client(account)
             print "client gotten, now to the messages!"
             for message in messages:
-                process(client, message)
+                process_message(client, message)
             print "done."
             return True
         else:
