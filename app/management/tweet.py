@@ -6,9 +6,9 @@ from app.models import Account
 def process_message(client, message):
     body = message.sender + ": "
     body += message.body
-    if (len(body) >= 115):
-        body = body[:115] + "..."
-    body += '\n' + message.url
+    if (len(body) >= 140):
+        body = body[:137] + "..."
+    #body += '\n' + message.url
 
     lat, long = message.loc.split(',')
     print lat, long
